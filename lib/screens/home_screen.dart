@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late RulerPickerController _weightController;
 
   double currentAge = 20;
-  double currentHeight = 60;
+  double currentHeight = 150;
   double currentWeight = 45;
   bool maleSelected = false;
   bool femaleSelected = false;
@@ -239,9 +239,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('${value.toStringAsFixed(isDecimal ? 1 : 0)} $unit', style: AppTextStyle.paragraph(context, fontSize: 30, fontWeight: FontWeight.bold, colorLight: AppColor.black54, colorDark: AppColor.white)
+                   Text('${value.toStringAsFixed(isDecimal ? 1 : 0)} ${title == 'Height' ? 'cm' : unit}', // UBAH: Tambahkan logika unit untuk Tinggi
+                      style: AppTextStyle.paragraph(context, fontSize: 30, fontWeight: FontWeight.bold, colorLight: AppColor.black54, colorDark: AppColor.white)
                     ),
-                    _buildRulerPicker(controller, onChange, isDecimal: isDecimal),
+                    _buildRulerPicker(controller, onChange, isDecimal: isDecimal, isHeight: title == 'Height'), // UBAH: Kirim flag isHeight
                   ],
                 ),
               ),
@@ -252,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildRulerPicker(RulerPickerController controller, Function(double) onChange, {bool isDecimal = false}) {
+  Widget _buildRulerPicker(RulerPickerController controller, Function(double) onChange, {bool isDecimal = false, bool isHeight = false  }) {
     return RulerPicker(
       controller: controller,
       rulerBackgroundColor: Colors.transparent,
@@ -260,7 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return "";
       },
       ranges: [
-        RulerRange(begin: 1, end: isDecimal ? 200 : 100, scale: isDecimal ? 0.1 : 1),
+        // UBAH: Jika Tinggi (Height), gunakan rentang yang lebih besar (misal 100-220 cm)
+        RulerRange(begin: isHeight ? 100 : 1, end: isHeight ? 220 : 200, scale: isDecimal ? 0.1 : 1),
       ],
       scaleLineStyleList: [
         ScaleLineStyle(color: Colors.grey.shade900, width: 2, height: 30, scale: 0),
@@ -297,7 +299,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: () {
               final gender = maleSelected ? 'Male' : (femaleSelected ? 'Female' : '');
-              final bmi = currentWeight / ((currentHeight * 0.0254) * (currentHeight * 0.0254));
+              // HITUNG BMI BARU (Tinggi dari cm diubah ke meter: currentHeight / 100)
+              final double heightInMeters = currentHeight / 100; // 1 cm = 0.01 m
+              final bmi = currentWeight / (heightInMeters * heightInMeters);
 
               Navigator.push(
                 context,
@@ -306,10 +310,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     userName: firstName,
                     gender: gender,
                     age: currentAge.toStringAsFixed(0),
-                    height: currentHeight.toStringAsFixed(0),
+                    height: currentHeight.toStringAsFixed(0), // Kirim cm ke layar hasil
                     weight: currentWeight.toStringAsFixed(1),
                     bmi: bmi.toStringAsFixed(1),
-                  ),
+                 ),
                 ),
               );
             },
