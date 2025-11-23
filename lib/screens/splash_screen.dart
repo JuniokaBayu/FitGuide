@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 children: [
                   Text("from", style: AppTextStyle.footer(context)),
-                  Text('YNS Group', style: AppTextStyle.footer(context)),
+                  Text('Modjok Group', style: AppTextStyle.footer(context)),
                 ],
               ),
             ),
