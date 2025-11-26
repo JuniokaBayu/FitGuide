@@ -40,17 +40,17 @@ class Developer extends StatelessWidget {
                   const CircleAvatar(
                     radius: 60,
                     backgroundImage: AssetImage(
-                      'assets/images/dp.jpg',
+                      'assets/images/okaBayu.jpg',
                     ), // Replace with your image path
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Oka Bayu",
+                    "Junioka Bayu Gionanda",
                     style: AppTextStyle.paragraph(context, fontSize: 24, colorLight: AppColor.lightBlack, fontWeight: FontWeight.bold, colorDark: AppColor.white),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Hi, I'm Yash Gupta, the developer of this FitScale BMI Calculator app.\n\nI built this app to help users easily track their BMI, understand their health status, and take steps toward a fitter lifestyle.",
+                    "Hi, Saya Oka Bayu, pengembang aplikasi Kalkulator BMI NutriFit ini.\n\nAplikasi ini saya kembangkan agar pengguna dapat mengecek BMI dengan praktis, mengetahui status kesehatannya, serta mendapatkan dorongan untuk menerapkan pola hidup yang lebih bugar.",
                     textAlign: TextAlign.center,
                     style: AppTextStyle.paragraph(context, fontSize: 15, colorLight: AppColor.extraLightBlack, colorDark: AppColor.lightWhite),
                   ),
@@ -64,27 +64,22 @@ class Developer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(icon: Icon(FontAwesomeIcons.linkedinIn),
-                        onPressed:() => _launchURL('https://www.linkedin.com/in/yashgupta7373'),
+                        onPressed:() => _launchURL('https://www.linkedin.com/in/junioka-bayu-gionanda-unipma/'),
                       ),
                       IconButton(
                         icon: Icon(FontAwesomeIcons.github),
                         onPressed:
-                            () => _launchURL('https://github.com/yashgupta7373'),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.web),
-                        onPressed:
-                            () => _launchURL('https://yashgupta7373.netlify.app'),
+                            () => _launchURL('https://github.com/JuniokaBayu'),
                       ),
                       IconButton(
                         icon: const Icon(Icons.mail_outline),
-                        onPressed: () => _launchURL('mailto:yashgupta73733@gmail.com'),
+                        onPressed: () => _launchURL('mailto:okabayu12344@gmail.com'),
                       ),
                     ],
                   ),
                   const Spacer(),
                   Text(
-                    "© 2025 FitScale | Built with Flutter",
+                    "© 2025 NutriFit",
                     style: AppTextStyle.paragraph(context, fontSize: 14, fontWeight: FontWeight.w400, colorLight: AppColor.extraLightBlack, colorDark: AppColor.lightWhite),
                   ),
                   const SizedBox(height: 10),
