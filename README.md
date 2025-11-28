@@ -28,12 +28,19 @@ Dibuat Oleh : Junioka Bayu Gionanda
 | ![Suggestion Light](screenshot/saran_light.jpg) | ![Other Light](screenshot/layar_lainya_light.jpg) | ![Pengembang Light](screenshot/pengembang_light.jpg) |
 | ![Suggestion Dark](screenshot/saran_dark.jpg)   | ![Other Dark](screenshot/layar_lainya_dark.jpg)   | ![Pengembang Dark](screenshot/pengembang_dark.jpg)   |
 
-### **Riwayat | Info**
+<!-- ### **Riwayat | Info | Ubah Nama**
 
 | Riwayat                                      | Info                                             | Ubah Nama                                             |  
 | ----------------------------------------------- |------------------------------------------------- | ------------------------------------------------- |
 | ![Riwayat Light](screenshot/riwayat_light.jpg) | ![Info Light](screenshot/info_light.jpg) | ![Ubah Nama Light](screenshot/ubah_namaLight.jpg) |
-| ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) | ![Ubah Nama Dark](screenshot/ubah_namaDark.jpg) |
+| ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) | ![Ubah Nama Dark](screenshot/ubah_namaDark.jpg) | -->
+
+### **Riwayat | Info | Ubah Nama | Menu Pop Up**
+
+| Riwayat                                      | Info                                             | Ubah Nama                                             | Menu Pop Up                                             | 
+| ----------------------------------------------- |------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| ![Riwayat Light](screenshot/riwayat_light.jpg) | ![Info Light](screenshot/info_light.jpg) | ![Ubah Nama Light](screenshot/ubah_namaLight.jpg) | ![Menu Pop Up Light](screenshot/Menu_Light.jpg) |
+| ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) | ![Ubah Nama Dark](screenshot/ubah_namaDark.jpg) | ![Menu Pop Up Dark](screenshot/Menu_Dark.jpg) |
 
 
 ---
