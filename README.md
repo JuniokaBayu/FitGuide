@@ -14,13 +14,26 @@ Dibuat Oleh : Junioka Bayu Gionanda
 
 ## 📸 Screenshots
 
-| Splash Screen                | BMI Calculate                     | Result Screen                             |
-|------------------------------|-----------------------------------|-------------------------------------------|
-| ![Splash](screenshot/sl_light.jpg) | ![Calculate](screenshot/bmi_light.jpg)   | ![Suggestions](screenshot/hasil_bmi_light.jpg)         |
-| ![Splash](screenshot/sl_dark.jpg) | ![Calculate](screenshot/bmi_dark.jpg)   | ![Suggestions](screenshot/hasil_bmi_dark.jpg)         |
-| Suggestion Screen            | Other Screen                      | Pengembang Screen                              |
-| ![Result](screenshot/saran_light.jpg) | ![Result](screenshot/layar_lainya_light.jpg)      | ![Result](screenshot/pengembang_light.jpg)              |
-| ![Result](screenshot/saran_dark.jpg) | ![Result](screenshot/layar_lainya_dark.jpg)      | ![Result](screenshot/pengembang_dark.jpg)              |
+### **Splash Screen | BMI Calculate | Result Screen**
+
+| Splash                                   | BMI                                    | Result                                          |
+| ---------------------------------------- | -------------------------------------- | ----------------------------------------------- |
+| ![Splash Light](screenshot/sl_light.jpg) | ![BMI Light](screenshot/bmi_light.jpg) | ![Result Light](screenshot/hasil_bmi_light.jpg) |
+| ![Splash Dark](screenshot/sl_dark.jpg)   | ![BMI Dark](screenshot/bmi_dark.jpg)   | ![Result Dark](screenshot/hasil_bmi_dark.jpg)   |
+
+### **Suggestion | Other | Pengembang**
+
+| Suggestion                                      | Other                                             | Pengembang                                           |
+| ----------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| ![Suggestion Light](screenshot/saran_light.jpg) | ![Other Light](screenshot/layar_lainya_light.jpg) | ![Pengembang Light](screenshot/pengembang_light.jpg) |
+| ![Suggestion Dark](screenshot/saran_dark.jpg)   | ![Other Dark](screenshot/layar_lainya_dark.jpg)   | ![Pengembang Dark](screenshot/pengembang_dark.jpg)   |
+
+### **Riwayat | Info**
+
+| Riwayat                                      | Info                                             | 
+| -----------------------------------------------  ------------------------------------------------- |
+| ![Riwayat Light](screenshot/riwayat_light.jpg) | ![Info Light](screenshot/info_light.jpg) |
+| ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) |
 
 
 ---
@@ -47,81 +60,3 @@ Dibuat Oleh : Junioka Bayu Gionanda
 - **FontAwesome Icons** (Social & UI icons)
 
 ---
-
-# FitGuide App
-
-A simple BMI calculator app built with Flutter, supporting **Light Mode** and **Dark Mode**. App includes BMI calculation, result suggestions, developer info, and more.
-
----
-
-## 📸 Screenshots
-
-### **Splash Screen | BMI Calculate | Result Screen**
-
-| Splash                                   | BMI                                    | Result                                          |
-| ---------------------------------------- | -------------------------------------- | ----------------------------------------------- |
-| ![Splash Light](screenshot/sl_light.jpg) | ![BMI Light](screenshot/bmi_light.jpg) | ![Result Light](screenshot/hasil_bmi_light.jpg) |
-| ![Splash Dark](screenshot/sl_dark.jpg)   | ![BMI Dark](screenshot/bmi_dark.jpg)   | ![Result Dark](screenshot/hasil_bmi_dark.jpg)   |
-
-### **Suggestion | Other | Pengembang**
-
-| Suggestion                                      | Other                                             | Pengembang                                           |
-| ----------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------- |
-| ![Suggestion Light](screenshot/saran_light.jpg) | ![Other Light](screenshot/layar_lainya_light.jpg) | ![Pengembang Light](screenshot/pengembang_light.jpg) |
-| ![Suggestion Dark](screenshot/saran_dark.jpg)   | ![Other Dark](screenshot/layar_lainya_dark.jpg)   | ![Pengembang Dark](screenshot/pengembang_dark.jpg)   |
-
-### **Riwayat / History Screen**
-
-*(Tambahkan screenshot di sini)*
-
-### **Info Screen**
-
-*(Tambahkan screenshot di sini)*
-
-## 🆕 Upcoming Additions
-
-The following screens will be added soon (Light & Dark Mode):
-
-* **Riwayat / History Screen**
-* **Info Screen**
-
-*(Screenshots will be placed here once provided.)*
-
----
-
-## 📦 Features
-
-* BMI Calculator
-* Personalized result suggestions
-* Light & Dark theme support
-* Developer information page
-* Clean & simple UI
-
----
-
-## 🚀 Installation
-
-Clone this repository:
-
-```bash
-git clone https://github.com/username/FitGuide.git
-```
-
-Run the app:
-
-```bash
-flutter pub get
-flutter run
-```
-
----
-
-## 🧑‍💻 Developer
-
-Created by **Your Name**.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
