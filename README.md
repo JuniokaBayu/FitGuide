@@ -4,6 +4,13 @@ NutriFit adalah aplikasi Flutter yang dirancang dengan indah yang menghitung Ind
 
 ---
 
+## 🧑‍💻 Info Pengembang
+
+Dibuat Oleh : Junioka Bayu Gionanda
+*Projek ini dibuat untuk memenuhi tugas Ujian Tengah Semester (UTS) pada mata kuliah Pemrograman Mobile 2 / Pemrogramman Bergerak
+
+---
+
 ## 📸 Screenshots
 
 | Splash Screen                | BMI Calculate                     | Result Screen                             |
@@ -16,32 +23,26 @@ NutriFit adalah aplikasi Flutter yang dirancang dengan indah yang menghitung Ind
 
 ---
 
-## ✨ Features
+## ✨ Fitur
 
-- 🎯 BMI Calculator based on age, height, weight, and gender
-- 🔥 Personalized health category (Normal, Overweight, Obese, etc.)
-- 💡 Smart Suggestion Page with motivation, food & exercise tips
-- 🎨 Light/Dark mode support (Theme switcher)
-- 🧑‍💼 Developer Page with links and intro
-- 🧠 Easy-to-use UI built with Flutter's Material Design
+- 🎯 Kalkulator BMI berdasarkan usia, tinggi badan, berat badan, dan jenis kelamin
+- 🔥 Kategori kesehatan yang dipersonalisasi (Normal, Overweight, Obese, etc.)
+- 💡 Halaman Saran Cerdas dengan motivasi, makanan & tips olahraga
+- 📜 Halaman Riwayat dari BMI yang pernah di lakukan
+- ℹ️ Halaman Informasi Tentang NutriFit
+- 🎨 Dukungan mode Terang/Gelap (Ubah tema)
+- 🧑‍💼 Halaman Pengembang dengan tautan dan intro
+- 🧠 UI yang mudah digunakan dibangun dengan Desain Material Flutter
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack / Tumpukan Teknologi
 
 - **Flutter** (UI Framework)
 - **Dart** (Programming Language)
 - **Shared Preferences** (Local storage)
-- **Syncfusion Flutter Gauges** (Radial BMI gauge)
+- **Syncfusion Flutter Gauges** (Radial BMI gauge/Pengukur BMI Radial)
 - **FontAwesome Icons** (Social & UI icons)
 
 ---
 
-### ❤️ Support
-
-If you like this project, consider giving it a ⭐ on GitHub!
-
----
-
-## 🧑‍💻 Developer Info
-Junioka Bayu Gionanda
