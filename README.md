@@ -31,7 +31,7 @@ Dibuat Oleh : Junioka Bayu Gionanda
 ### **Riwayat | Info**
 
 | Riwayat                                      | Info                                             | 
-| -----------------------------------------------  ------------------------------------------------- |
+| ----------------------------------------------- |------------------------------------------------- |
 | ![Riwayat Light](screenshot/riwayat_light.jpg) | ![Info Light](screenshot/info_light.jpg) |
 | ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) |
 
