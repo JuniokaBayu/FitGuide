@@ -1,13 +1,6 @@
-# 📱 FitScale – BMI Calculator & Wellness Guide
+# 📱 NutriFit – Kalkulator BMI & Panduan Kesehatan
 
-FitScale is a beautifully designed Flutter app that calculates your Body Mass Index (BMI) and provides **personalized health suggestions**, **exercise tips**, and **diet plans** based on your BMI category. It aims to **motivate users** to achieve a healthier lifestyle through a clean interface and smart features.
-
----
-
-## 🔗 Live Demo
-
-> 🚀 **Try it now (APK):** [Download APK](http://127.0.0.1:5500/106_Bootstrap_project/02_Bootstrap_with_CSS_webPage/img/FitScale.apk)  
-> 🛠️ **GitHub Repository:** [github.com/yashgupta7373/FitScale](https://github.com/yashgupta7373/FitScale)
+NutriFit adalah aplikasi Flutter yang dirancang dengan indah yang menghitung Indeks Massa Tubuh (IMT) Anda dan menyediakan **saran kesehatan yang dipersonalisasi**, **tips olahraga**, dan **rencana diet** berdasarkan kategori IMT Anda. Aplikasi ini bertujuan untuk **memotivasi pengguna** untuk mencapai gaya hidup yang lebih sehat melalui antarmuka yang bersih dan fitur-fitur cerdas.
 
 ---
 
@@ -44,34 +37,6 @@ FitScale is a beautifully designed Flutter app that calculates your Body Mass In
 
 ---
 
-## 🚀 How to Run Locally
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/yashgupta7373/FitScale.git
-cd FitScale
-
-# 2. Get Flutter packages
-flutter pub get
-
-# 3. Run the app on emulator or real device
-flutter run
-
-✅ Make sure you have Flutter installed: https://docs.flutter.dev/get-started/install
-
-```
-
-### 🙌 Contributing
-
-Pull requests are welcome! If you want to contribute:
-1. Fork the project
-2. Create your feature branch (git checkout -b feature/YourFeature)
-3. Commit your changes (git commit -m 'Add feature')
-4. Push to the branch (git push origin feature/YourFeature)
-5. Open a Pull Request
-
----
-
 ### ❤️ Support
 
 If you like this project, consider giving it a ⭐ on GitHub!
@@ -79,4 +44,4 @@ If you like this project, consider giving it a ⭐ on GitHub!
 ---
 
 ## 🧑‍💻 Developer Info
-Yash Gupta
+Junioka Bayu Gionanda
