@@ -15,11 +15,11 @@ FitScale is a beautifully designed Flutter app that calculates your Body Mass In
 
 | Splash Screen                | BMI Calculate                     | Result Screen                             |
 |------------------------------|-----------------------------------|-------------------------------------------|
-| ![Splash](screenshot/sl_light.jpg) | ![Calculate](screenshot/L4.jpg)   | ![Suggestions](screenshot/L5.jpg)         |
-| ![Splash](screenshot/sl_dark.jpg) | ![Calculate](screenshot/B4.jpg)   | ![Suggestions](screenshot/B5.jpg)         |
-| Suggestion Screen            | Other Screen                      | Other Screen                              |
-| ![Result](screenshot/L6.jpg) | ![Result](screenshot/L2.jpg)      | ![Result](screenshot/L3.jpg)              |
-| ![Result](screenshot/B6.jpg) | ![Result](screenshot/B2.jpg)      | ![Result](screenshot/B3.jpg)              |
+| ![Splash](screenshot/sl_light.jpg) | ![Calculate](screenshot/bmi_light.jpg)   | ![Suggestions](screenshot/hasil_bmi_light.jpg)         |
+| ![Splash](screenshot/sl_dark.jpg) | ![Calculate](screenshot/bmi_dark.jpg)   | ![Suggestions](screenshot/hasil_bmi_dark.jpg)         |
+| Suggestion Screen            | Other Screen                      | Pengembang Screen                              |
+| ![Result](screenshot/saran_light.jpg) | ![Result](screenshot/layar_lainya_light.jpg)      | ![Result](screenshot/pengembang_light.jpg)              |
+| ![Result](screenshot/saran_dark.jpg) | ![Result](screenshot/layar_lainya_dark.jpg)      | ![Result](screenshot/pengembang_dark.jpg)              |
 
 ---
 
