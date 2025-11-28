@@ -30,7 +30,7 @@ Dibuat Oleh : Junioka Bayu Gionanda
 
 ### **Riwayat | Info**
 
-| Riwayat                                      | Info                                             | 
+| Riwayat                                      | Info                                             | Ubah Nama                                             |  
 | ----------------------------------------------- |------------------------------------------------- | ------------------------------------------------- |
 | ![Riwayat Light](screenshot/riwayat_light.jpg) | ![Info Light](screenshot/info_light.jpg) | ![Ubah Nama Light](screenshot/ubah_namaLight.jpg) |
 | ![Riwayat Dark](screenshot/riwayat_dark.jpg) | ![Info Dark](screenshot/info_dark.jpg) | ![Ubah Nama Dark](screenshot/ubah_namaDark.jpg) |
