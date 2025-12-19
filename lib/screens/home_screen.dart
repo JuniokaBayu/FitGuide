@@ -50,16 +50,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _saveBmiRecord(double bmiValue, String category) async {
     final prefs = await SharedPreferences.getInstance();
-    // Format data: "TGL|BMI|KATEGORI"
-    final String newRecord = "${DateTime.now().toIso8601String().substring(0, 10)}|${bmiValue.toStringAsFixed(1)}|$category";
     
-    // Ambil daftar riwayat yang sudah ada
+    // UBAH FORMAT: Sekarang kita simpan "TGL|BMI|KATEGORI|TINGGI|BERAT"
+    // Gunakan pemisah '|' untuk memudahkan pembacaan nanti
+    final String newRecord = "${DateTime.now().toIso8601String().substring(0, 10)}|"
+        "${bmiValue.toStringAsFixed(1)}|"
+        "$category|"
+        "${currentHeight.toStringAsFixed(0)}|" // Simpan Tinggi
+        "${currentWeight.toStringAsFixed(1)}"; // Simpan Berat
+    
     final List<String> history = prefs.getStringList('bmi_history') ?? [];
     
-    // Tambahkan riwayat baru ke daftar
     history.add(newRecord);
     
-    // Simpan kembali daftar riwayat
     await prefs.setStringList('bmi_history', history);
   }
 
