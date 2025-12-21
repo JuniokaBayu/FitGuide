@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Hi $firstName! 👋", style: AppTextStyle.appBar(context, fontSize: 24).copyWith(fontWeight: FontWeight.bold)),
-              Text(getGreeting(), style: AppTextStyle.appBar(context, fontSize: 16).copyWith(color: Colors.grey)),
+              Text(getGreeting(), style: AppTextStyle.appBar(context, fontSize: 16)),
             ],
           ),
         ),
