@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 import '../utility/app_color.dart';
 import '../utility/text_style.dart';
 
+// Model Data BMI
 class BmiRecord {
-  final int id; // ID unik untuk menghapus
+  final int originalIndex; 
   final DateTime fullDate;
   final String dateStr;
   final String bmi;
@@ -13,7 +14,15 @@ class BmiRecord {
   final String height;
   final String weight;
 
-  BmiRecord(this.id, this.fullDate, this.dateStr, this.bmi, this.category, this.height, this.weight);
+  BmiRecord({
+    required this.originalIndex,
+    required this.fullDate,
+    required this.dateStr,
+    required this.bmi,
+    required this.category,
+    required this.height,
+    required this.weight,
+  });
 }
 
 class HistoryScreen extends StatefulWidget {
@@ -28,7 +37,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   List<BmiRecord> _filteredRecords = [];
   bool _isLoading = true;
 
-  // Pagination & Filter Variables
+  // Variabel Navigasi & Filter
   int _currentPage = 0;
   final int _pageSize = 10;
   DateTime? _selectedFilterDate;
@@ -39,6 +48,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     _loadBmiHistory();
   }
 
+  // Fungsi memuat riwayat dari memori HP
   Future<void> _loadBmiHistory() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> history = prefs.getStringList('bmi_history') ?? [];
@@ -50,17 +60,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       final rawDate = DateTime.parse(parts[0]);
       loaded.add(BmiRecord(
-        i, // Menggunakan index asli sebagai ID
-        rawDate,
-        DateFormat('dd MMM yyyy').format(rawDate),
-        parts[1],
-        parts[2],
-        parts.length > 3 ? parts[3] : "-",
-        parts.length > 4 ? parts[4] : "-",
+        originalIndex: i, 
+        fullDate: rawDate,
+        dateStr: DateFormat('dd MMM yyyy').format(rawDate),
+        bmi: parts[1],
+        category: parts[2],
+        height: parts.length > 3 ? parts[3] : "-",
+        weight: parts.length > 4 ? parts[4] : "-", // Perbaikan: Tambahkan label weight
       ));
     }
 
-    // Urutkan dari yang terbaru
+    // Mengurutkan data terbaru di posisi paling atas
     loaded.sort((a, b) => b.fullDate.compareTo(a.fullDate));
 
     setState(() {
@@ -78,34 +88,34 @@ class _HistoryScreenState extends State<HistoryScreen> {
           r.fullDate.month == _selectedFilterDate!.month &&
           r.fullDate.year == _selectedFilterDate!.year).toList();
     }
-    _currentPage = 0; // Reset ke halaman pertama setiap filter berubah
+    _currentPage = 0; 
   }
 
-  Future<void> _deleteRecord(int originalIndex) async {
+  // Menghapus satu data spesifik
+  Future<void> _deleteRecord(BmiRecord record) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> history = prefs.getStringList('bmi_history') ?? [];
     
-    // Hapus data berdasarkan index asli
-    history.removeAt(originalIndex);
-    await prefs.setStringList('bmi_history', history);
+    if (record.originalIndex < history.length) {
+      history.removeAt(record.originalIndex);
+      await prefs.setStringList('bmi_history', history);
+    }
     
-    _loadBmiHistory(); // Refresh data
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Data berhasil dihapus")),
-    );
+    _loadBmiHistory(); // Segarkan data agar index diperbarui
   }
 
+  // Menghapus seluruh riwayat
   Future<void> _clearAllHistory() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('bmi_history');
     _loadBmiHistory();
   }
 
-  // --- Logic Pagination ---
+  // Logika Pagination (10 data per halaman)
   List<BmiRecord> get _currentPagedRecords {
     int start = _currentPage * _pageSize;
     int end = start + _pageSize;
-    if (start > _filteredRecords.length) return [];
+    if (start >= _filteredRecords.length) return [];
     return _filteredRecords.sublist(
         start, end > _filteredRecords.length ? _filteredRecords.length : end);
   }
@@ -119,27 +129,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Riwayat", style: AppTextStyle.appBar(context)),
+        title: Text("Riwayat NutriFit", style: AppTextStyle.appBar(context)),
         actions: [
-          // Filter Button
-          IconButton(
-            icon: const Icon(Icons.filter_alt_outlined),
-            onPressed: () async {
-              final picked = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2020),
-                lastDate: DateTime.now(),
-                helpText: "Pilih Bulan & Tahun",
-              );
-              if (picked != null) {
-                setState(() {
-                  _selectedFilterDate = picked;
-                  _applyFilter();
-                });
-              }
-            },
-          ),
+          IconButton(icon: const Icon(Icons.filter_alt_outlined), onPressed: _showDatePickerFilter),
           if (_selectedFilterDate != null)
             IconButton(
               icon: const Icon(Icons.filter_alt_off),
@@ -148,11 +140,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 _applyFilter();
               }),
             ),
-          // Delete All Button
-          IconButton(
-            icon: const Icon(Icons.delete_sweep, color: Colors.red),
-            onPressed: () => _showDeleteConfirmDialog(null),
-          ),
+          IconButton(icon: const Icon(Icons.delete_sweep, color: Colors.red), onPressed: () => _showDeleteConfirmDialog(null)),
         ],
       ),
       body: _isLoading
@@ -170,7 +158,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           },
                         ),
                 ),
-                // Pagination Controls
                 if (totalPages > 1) _buildPaginationBar(totalPages),
               ],
             ),
@@ -179,7 +166,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget _buildHistoryCard(BmiRecord record) {
     return Dismissible(
-      key: Key(record.id.toString()),
+      // Menggunakan Key unik gabungan waktu dan index asli untuk mencegah error "Dismissed widget"
+      key: Key("${record.fullDate.millisecondsSinceEpoch}-${record.originalIndex}"),
       direction: DismissDirection.endToStart,
       background: Container(
         color: Colors.red,
@@ -187,7 +175,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: const Icon(Icons.delete, color: Colors.white),
       ),
-      onDismissed: (direction) => _deleteRecord(record.id),
+      onDismissed: (direction) {
+        // Segera hapus dari list lokal agar UI tidak error saat rebuild
+        setState(() {
+          _filteredRecords.removeWhere((element) => element.originalIndex == record.originalIndex);
+          _allRecords.removeWhere((element) => element.originalIndex == record.originalIndex);
+        });
+        _deleteRecord(record);
+      },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         padding: const EdgeInsets.all(15),
@@ -201,10 +196,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(record.dateStr, style: AppTextStyle.paragraph(context, fontSize: 13, colorLight: AppColor.black54)),
-                GestureDetector(
-                  onTap: () => _showDeleteConfirmDialog(record.id),
-                  child: const Icon(Icons.close, size: 18, color: Colors.grey),
-                ),
+                GestureDetector(onTap: () => _showDeleteConfirmDialog(record), child: const Icon(Icons.close, size: 18, color: Colors.grey)),
               ],
             ),
             const Divider(),
@@ -232,9 +224,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Column(
       children: [
         Text(label, style: AppTextStyle.paragraph(context, fontSize: 11, colorLight: AppColor.black54)),
-        Text(value, style: AppTextStyle.paragraph(context, 
-            fontSize: 15, 
-            fontWeight: isBold ? FontWeight.bold : FontWeight.normal)),
+        Text(value, style: AppTextStyle.paragraph(context, fontSize: 15, fontWeight: isBold ? FontWeight.bold : FontWeight.normal)),
       ],
     );
   }
@@ -242,38 +232,47 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget _buildPaginationBar(int totalPages) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      color: Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: _currentPage > 0 ? () => setState(() => _currentPage--) : null,
-          ),
+          IconButton(icon: const Icon(Icons.chevron_left), onPressed: _currentPage > 0 ? () => setState(() => _currentPage--) : null),
           Text("Halaman ${_currentPage + 1} dari $totalPages", style: AppTextStyle.paragraph(context, fontSize: 14)),
-          IconButton(
-            icon: const Icon(Icons.chevron_right),
-            onPressed: _currentPage < totalPages - 1 ? () => setState(() => _currentPage++) : null,
-          ),
+          IconButton(icon: const Icon(Icons.chevron_right), onPressed: _currentPage < totalPages - 1 ? () => setState(() => _currentPage++) : null),
         ],
       ),
     );
   }
 
-  void _showDeleteConfirmDialog(int? id) {
+  void _showDatePickerFilter() async {
+    final picked = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime.now());
+    if (picked != null) {
+      setState(() {
+        _selectedFilterDate = picked;
+        _applyFilter();
+      });
+    }
+  }
+
+  void _showDeleteConfirmDialog(BmiRecord? record) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(id == null ? "Hapus Semua?" : "Hapus Data?"),
-        content: Text(id == null 
-            ? "Apakah Anda yakin ingin menghapus seluruh riwayat BMI?" 
-            : "Data ini akan dihapus secara permanen."),
+        title: Text(record == null ? "Hapus Semua?" : "Hapus Data?"),
+        content: Text(record == null ? "Hapus seluruh riwayat BMI?" : "Data ini akan dihapus secara permanen."),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text("Batal")),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              id == null ? _clearAllHistory() : _deleteRecord(id);
+              if (record == null) {
+                _clearAllHistory();
+              } else {
+                setState(() {
+                   _filteredRecords.remove(record);
+                   _allRecords.remove(record);
+                });
+                _deleteRecord(record);
+              }
             }, 
             child: const Text("Hapus", style: TextStyle(color: Colors.red))
           ),
