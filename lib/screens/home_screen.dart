@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ranges: [RulerRange(begin: isHeight ? 100 : 1, end: isHeight ? 220 : 200, scale: isDecimal ? 0.1 : 1)],
       scaleLineStyleList: [
         const ScaleLineStyle(color: Colors.grey, width: 2, height: 25, scale: 0),
-        ScaleLineStyle(color: Colors.grey.withOpacity(0.5), width: 1, height: 15, scale: -1),
+        ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 15, scale: -1),
       ],
       onValueChanged: (value) => onChange(value.toDouble()),
       width: 150,
