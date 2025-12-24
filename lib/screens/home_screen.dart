@@ -86,8 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // --- UI REFINED (Penyempurnaan Kode Lama) ---
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           _buildHeader(),
+          const SizedBox(height: 15), // Jarak tambahan agar kotak input tidak terlalu mepet sapaan
           _buildGenderAgeSection(),
           const SizedBox(height: 12),
           _buildMeasurementCard('Tinggi', 'cm', currentHeight, _heightController, _onHeightChanged, 'assets/images/heighting.png'),
@@ -136,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center, // Pusatkan teks secara vertikal dalam area sapaan
             children: [
               Text("Hi $firstName! 👋", style: AppTextStyle.appBar(context, fontSize: 24).copyWith(fontWeight: FontWeight.bold)),
               Text(getGreeting(), style: AppTextStyle.appBar(context, fontSize: 16)),
@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildGenderAgeSection() {
     return Expanded(
-      flex: 7, // Ditingkatkan sedikit agar kotak umur lebih lega
+      flex: 6, // Dikurangi dari 7 agar tinggi kotak Gender & Umur tidak berlebihan
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(
@@ -170,17 +170,17 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Memastikan konten di tengah
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Gender", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15), // Jarak sedikit dikurangi agar pas
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildGenderOption('Male', maleSelected, 'assets/images/male.png', 'assets/images/maleBlack.png', () {
                   setState(() { maleSelected = true; femaleSelected = false; });
                 }),
-                const VerticalDivider(color: Colors.grey, thickness: 1, indent: 10, endIndent: 10),
+                const VerticalDivider(color: Colors.grey, thickness: 1, indent: 5, endIndent: 5),
                 _buildGenderOption('Female', femaleSelected, 'assets/images/female.png', 'assets/images/femaleBlack.png', () {
                   setState(() { femaleSelected = true; maleSelected = false; });
                 }),
@@ -197,9 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: onTap,
       child: Column(
         children: [
-          Image.asset(isSelected ? selectedImg : unselectedImg, height: 50),
-          const SizedBox(height: 8),
-          Text(label, style: AppTextStyle.paragraph(context, fontSize: 14)),
+          Image.asset(isSelected ? selectedImg : unselectedImg, height: 45), // Ukuran ikon sedikit diperkecil
+          const SizedBox(height: 6),
+          Text(label, style: AppTextStyle.paragraph(context, fontSize: 13)),
         ],
       ),
     );
@@ -213,14 +213,13 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(25),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Pusatkan secara vertikal
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Umur", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Text('${currentAge.toInt()}', style: AppTextStyle.paragraph(context, fontSize: 28, fontWeight: FontWeight.bold)),
-            // Tinggi ruler dikunci agar tidak menyebabkan overflow
+            const SizedBox(height: 5),
+            Text('${currentAge.toInt()}', style: AppTextStyle.paragraph(context, fontSize: 26, fontWeight: FontWeight.bold)),
             SizedBox(
-              height: 65, 
+              height: 55, // Tinggi diturunkan agar lebih kompak
               child: _buildRulerPicker(_ageController, _onAgeChanged)
             ),
           ],
@@ -246,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(imagePath, height: 60),
+                    Image.asset(imagePath, height: 55), // Diperkecil sedikit
                     const SizedBox(height: 5),
                     Text(title, style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold))
                   ],
@@ -258,9 +257,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('${value.toStringAsFixed(isDecimal ? 1 : 0)} $unit', 
-                        style: AppTextStyle.paragraph(context, fontSize: 26, fontWeight: FontWeight.bold)),
+                        style: AppTextStyle.paragraph(context, fontSize: 24, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 5),
-                    SizedBox(height: 60, child: _buildRulerPicker(controller, onChange, isDecimal: isDecimal, isHeight: title == 'Tinggi')),
+                    SizedBox(height: 55, child: _buildRulerPicker(controller, onChange, isDecimal: isDecimal, isHeight: title == 'Tinggi')),
                   ],
                 ),
               ),
@@ -278,15 +277,15 @@ class _HomeScreenState extends State<HomeScreen> {
       onBuildRulerScaleText: (index, value) => "",
       ranges: [RulerRange(begin: isHeight ? 100 : 1, end: isHeight ? 220 : 200, scale: isDecimal ? 0.1 : 1)],
       scaleLineStyleList: [
-        const ScaleLineStyle(color: Colors.grey, width: 2, height: 25, scale: 0),
-        ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 15, scale: -1),
+        const ScaleLineStyle(color: Colors.grey, width: 2, height: 20, scale: 0), // Tinggi garis skala diperpendek
+        ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 12, scale: -1),
       ],
       onValueChanged: (value) => onChange(value.toDouble()),
       width: 150,
-      height: 60,
+      height: 55,
       marker: Container(
-        width: 4,
-        height: 35,
+        width: 3,
+        height: 30,
         decoration: BoxDecoration(color: AppColor.red, borderRadius: BorderRadius.circular(5))
       ),
     );
