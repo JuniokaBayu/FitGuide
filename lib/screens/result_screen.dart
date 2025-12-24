@@ -180,7 +180,7 @@ class ResultScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Tebak apa.?',
+                    'Coba Tebak.?',
                 style: AppTextStyle.paragraph(context, fontSize: 25, fontWeight: FontWeight.w400, colorDark: AppColor.white, colorLight: AppColor.black87)
                   ),
                   RichText(
