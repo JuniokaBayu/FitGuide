@@ -115,9 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 15), // Jarak tambahan agar kotak input tidak terlalu mepet sapaan
           _buildGenderAgeSection(),
           const SizedBox(height: 12),
-          _buildMeasurementCard('Tinggi', 'cm', currentHeight, _heightController, _onHeightChanged, 'assets/images/heighting.png'),
+          _buildMeasurementCard('Tinggi', 'cm', currentHeight, _heightController, _onHeightChanged, 'assets/images/tinggiBadan.png'),
           const SizedBox(height: 12),
-          _buildMeasurementCard('Berat', 'kg', currentWeight, _weightController, _onWeightChanged, 'assets/images/weighting.png', isDecimal: true),
+          _buildMeasurementCard('Berat', 'kg', currentWeight, _weightController, _onWeightChanged, 'assets/images/beratBadan.png', isDecimal: true),
           const SizedBox(height: 15),
           _buildCalculateButton(),
           const SizedBox(height: 10),
