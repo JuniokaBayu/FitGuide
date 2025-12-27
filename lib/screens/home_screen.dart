@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Gender", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15), // Jarak sedikit dikurangi agar pas
+            const SizedBox(height: 15), 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: onTap,
       child: Column(
         children: [
-          Image.asset(isSelected ? selectedImg : unselectedImg, height: 45), // Ukuran ikon sedikit diperkecil
+          Image.asset(isSelected ? selectedImg : unselectedImg, height: 45), 
           const SizedBox(height: 6),
           Text(label, style: AppTextStyle.paragraph(context, fontSize: 13)),
         ],
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 5),
             Text('${currentAge.toInt()}', style: AppTextStyle.paragraph(context, fontSize: 26, fontWeight: FontWeight.bold)),
             SizedBox(
-              height: 55, // Tinggi diturunkan agar lebih kompak
+              height: 55, 
               child: _buildRulerPicker(_ageController, _onAgeChanged)
             ),
           ],
@@ -245,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(imagePath, height: 55), // Diperkecil sedikit
+                    Image.asset(imagePath, height: 55), 
                     const SizedBox(height: 5),
                     Text(title, style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold))
                   ],
@@ -277,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onBuildRulerScaleText: (index, value) => "",
       ranges: [RulerRange(begin: isHeight ? 100 : 1, end: isHeight ? 220 : 200, scale: isDecimal ? 0.1 : 1)],
       scaleLineStyleList: [
-        const ScaleLineStyle(color: Colors.grey, width: 2, height: 20, scale: 0), // Tinggi garis skala diperpendek
+        const ScaleLineStyle(color: Colors.grey, width: 2, height: 20, scale: 0), 
         ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 12, scale: -1),
       ],
       onValueChanged: (value) => onChange(value.toDouble()),
