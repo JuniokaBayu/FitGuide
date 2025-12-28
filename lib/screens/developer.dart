@@ -160,15 +160,22 @@ class Developer extends StatelessWidget {
 
   Widget _iconButton(IconData icon, VoidCallback onTap, BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(2), // Padding luar untuk membungkus IconButton
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColor.buttonColor(context, dark: AppColor.lightBlack),
+        // Latar belakang tombol mengikuti warna tombol aplikasi
+        color: AppColor.buttonColor(context, dark: AppColor.lightBlack, light: AppColor.cream),
+        border: Border.all(
+          color: AppColor.borderColor(context).withOpacity(0.3),
+          width: 1,
+        ),
       ),
       child: IconButton(
         icon: Icon(icon, size: 22),
         onPressed: onTap,
-        color: AppColor.textLight,
+        // Warna ikon otomatis menjadi Putih di Dark Mode dan Hitam/Gelap di Light Mode
+        color: AppColor.paraColor(context, dark: Colors.white, light: AppColor.lightBlack),
+        splashRadius: 25,
       ),
     );
   }
