@@ -6,7 +6,7 @@ import '../utility/text_style.dart';
 
 // Model Data BMI
 class BmiRecord {
-  final int originalIndex; 
+  final int originalIndex; // Indeks asli di penyimpanan untuk keperluan hapus
   final DateTime fullDate;
   final String dateStr;
   final String bmi;
@@ -48,7 +48,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
     _loadBmiHistory();
   }
 
-  // Fungsi memuat riwayat dari memori HP
   Future<void> _loadBmiHistory() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> history = prefs.getStringList('bmi_history') ?? [];
@@ -58,20 +57,32 @@ class _HistoryScreenState extends State<HistoryScreen> {
       final parts = history[i].split('|');
       if (parts.length < 3) continue;
 
-      final rawDate = DateTime.parse(parts[0]);
-      loaded.add(BmiRecord(
-        originalIndex: i, 
-        fullDate: rawDate,
-        dateStr: DateFormat('dd MMM yyyy').format(rawDate),
-        bmi: parts[1],
-        category: parts[2],
-        height: parts.length > 3 ? parts[3] : "-",
-        weight: parts.length > 4 ? parts[4] : "-", // Perbaikan: Tambahkan label weight
-      ));
+      try {
+        final rawDate = DateTime.parse(parts[0]);
+        loaded.add(BmiRecord(
+          originalIndex: i, 
+          fullDate: rawDate,
+          dateStr: DateFormat('dd MMM yyyy').format(rawDate),
+          bmi: parts[1],
+          category: parts[2],
+          height: parts.length > 3 ? parts[3] : "-",
+          weight: parts.length > 4 ? parts[4] : "-", // Perbaikan label parameter
+        ));
+      } catch (e) {
+        debugPrint("Error parsing data: $e");
+      }
     }
 
-    // Mengurutkan data terbaru di posisi paling atas
-    loaded.sort((a, b) => b.fullDate.compareTo(a.fullDate));
+    // LOGIKA SORTING TERBARU (Pasti urut terbaru di atas)
+    loaded.sort((a, b) {
+      // 1. Bandingkan Tanggal
+      int dateComp = b.fullDate.compareTo(a.fullDate);
+      if (dateComp == 0) {
+        // 2. Jika tanggal sama, gunakan urutan masuk (Original Index) yang lebih besar
+        return b.originalIndex.compareTo(a.originalIndex);
+      }
+      return dateComp;
+    });
 
     setState(() {
       _allRecords = loaded;
@@ -91,7 +102,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
     _currentPage = 0; 
   }
 
-  // Menghapus satu data spesifik
   Future<void> _deleteRecord(BmiRecord record) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> history = prefs.getStringList('bmi_history') ?? [];
@@ -101,17 +111,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
       await prefs.setStringList('bmi_history', history);
     }
     
-    _loadBmiHistory(); // Segarkan data agar index diperbarui
+    _loadBmiHistory(); 
   }
 
-  // Menghapus seluruh riwayat
   Future<void> _clearAllHistory() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('bmi_history');
     _loadBmiHistory();
   }
 
-  // Logika Pagination (10 data per halaman)
   List<BmiRecord> get _currentPagedRecords {
     int start = _currentPage * _pageSize;
     int end = start + _pageSize;
@@ -154,6 +162,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           itemCount: _currentPagedRecords.length,
                           itemBuilder: (context, index) {
                             final record = _currentPagedRecords[index];
+                            // Fitur Dismissible (Hapus Geser) telah Dihapus
                             return _buildHistoryCard(record);
                           },
                         ),
@@ -165,57 +174,42 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget _buildHistoryCard(BmiRecord record) {
-    return Dismissible(
-      // Menggunakan Key unik gabungan waktu dan index asli untuk mencegah error "Dismissed widget"
-      key: Key("${record.fullDate.millisecondsSinceEpoch}-${record.originalIndex}"),
-      direction: DismissDirection.endToStart,
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(Icons.delete, color: Colors.white),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
+        borderRadius: BorderRadius.circular(15),
       ),
-      onDismissed: (direction) {
-        // Segera hapus dari list lokal agar UI tidak error saat rebuild
-        setState(() {
-          _filteredRecords.removeWhere((element) => element.originalIndex == record.originalIndex);
-          _allRecords.removeWhere((element) => element.originalIndex == record.originalIndex);
-        });
-        _deleteRecord(record);
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(record.dateStr, style: AppTextStyle.paragraph(context, fontSize: 13, colorLight: AppColor.black54)),
-                GestureDetector(onTap: () => _showDeleteConfirmDialog(record), child: const Icon(Icons.close, size: 18, color: Colors.grey)),
-              ],
-            ),
-            const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildStatColumn("BMI", record.bmi, isBold: true),
-                _buildStatColumn("Tinggi", "${record.height} cm"),
-                _buildStatColumn("Berat", "${record.weight} kg"),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Text(record.category, style: TextStyle(
-              fontSize: 12,
-              color: record.category == "Normal" ? Colors.green : Colors.orange,
-              fontWeight: FontWeight.bold
-            )),
-          ],
-        ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(record.dateStr, style: AppTextStyle.paragraph(context, fontSize: 13, colorLight: AppColor.black54)),
+              // Satu-satunya tombol hapus
+              GestureDetector(
+                onTap: () => _showDeleteConfirmDialog(record), 
+                child: const Icon(Icons.close, size: 20, color: Colors.grey)
+              ),
+            ],
+          ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildStatColumn("BMI", record.bmi, isBold: true),
+              _buildStatColumn("Tinggi", "${record.height} cm"),
+              _buildStatColumn("Berat", "${record.weight} kg"),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Text(record.category, style: TextStyle(
+            fontSize: 12,
+            color: record.category == "Normal" ? Colors.green : Colors.orange,
+            fontWeight: FontWeight.bold
+          )),
+        ],
       ),
     );
   }
