@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../utility/app_color.dart';
+import '../utility/text_style.dart';
 
 class BmiSuggestion {
   final String emoji;
@@ -56,7 +58,6 @@ class SuggestionScreen extends StatelessWidget {
         "Jalan kaki dan peregangan setiap hari 🧘‍♂️",
       ],
     ),
-    // (SEMUA DATA TETAP, tidak diubah)
     'Mild Thinness': BmiSuggestion(
       emoji: '🍞💪',
       motivation: "Hampir sehat – hanya perlu sedikit dorongan lagi 🚀",
@@ -81,7 +82,6 @@ class SuggestionScreen extends StatelessWidget {
         "Cobalah meditasi atau yoga 🧘",
       ],
     ),
-    // (DAN SETERUSNYA tanpa perubahan)
     'Overweight': BmiSuggestion(
       emoji: '🥦🚴',
       motivation: "Mari kita kurangi berat badan dan menjadi bugar bersama 💥",
@@ -136,12 +136,20 @@ class SuggestionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final category = getBMICategory(double.parse(bmi));
     final suggestion = suggestionMap[category]!;
+    
+    // Background color dinamis dari AppColor
+    final bgColor = AppColor.background(context, light: AppColor.creamLight, dark: AppColor.darkBlack);
+    // Card color dinamis dari AppColor
+    final cardColor = AppColor.buttonColor(context, dark: AppColor.extraLightBlack);
 
     return Scaffold(
+      backgroundColor: bgColor,
       appBar: AppBar(
-        title: Text('Hi $userName 👋'),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        title: Text('Hi $userName 👋', style: AppTextStyle.appBar(context)),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: AppColor.paraColor(context, dark: Colors.white, light: Colors.black87)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,8 +161,9 @@ class SuggestionScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColor.borderColor(context).withOpacity(0.5)),
                 ),
                 child: Row(
                   children: [
@@ -164,12 +173,18 @@ class SuggestionScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        "BMI Kamu: $bmi\nKategori: $category",
-                        style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "BMI Kamu: $bmi",
+                            style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Kategori: $category",
+                            style: AppTextStyle.paragraph(context, fontSize: 16, colorLight: AppColor.dotColor2, colorDark: AppColor.dotColor1),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -179,34 +194,45 @@ class SuggestionScreen extends StatelessWidget {
               const SizedBox(height: 25),
 
               // === MOTIVASI ===
-              Text("💡 Motivasi", style: _sectionTitle()),
+              Text("💡 Motivasi", style: _sectionTitle(context)),
               const SizedBox(height: 8),
               Container(
+                width: double.infinity,
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.blue.shade100, width: 1.3),
+                  border: Border.all(color: AppColor.borderColor(context).withOpacity(0.3)),
                 ),
-                child: Text(suggestion.motivation, style: _contentText()),
+                child: Text(
+                  suggestion.motivation, 
+                  style: AppTextStyle.paragraph(context, fontSize: 15),
+                ),
               ),
 
               const SizedBox(height: 25),
 
               // === SARAN MAKANAN ===
-              Text("🍽️ Saran Makanan", style: _sectionTitle()),
+              Text("🍽️ Saran Makanan", style: _sectionTitle(context)),
               const SizedBox(height: 10),
               ...suggestion.foodTips.map((tip) => Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Colors.orange.shade50,
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.orange.withOpacity(0.3)),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.fastfood, size: 26),
-                    const SizedBox(width: 10),
-                    Expanded(child: Text(tip, style: _contentText())),
+                    Icon(Icons.fastfood, size: 26, color: AppColor.dotColor2),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        tip, 
+                        style: AppTextStyle.paragraph(context, fontSize: 15),
+                      ),
+                    ),
                   ],
                 ),
               )),
@@ -214,20 +240,26 @@ class SuggestionScreen extends StatelessWidget {
               const SizedBox(height: 25),
 
               // === SARAN LATIHAN ===
-              Text("🏋️ Saran Latihan", style: _sectionTitle()),
+              Text("🏋️ Saran Latihan", style: _sectionTitle(context)),
               const SizedBox(height: 10),
               ...suggestion.exerciseTips.map((tip) => Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade50,
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.green.withOpacity(0.3)),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.fitness_center, size: 26),
-                    const SizedBox(width: 10),
-                    Expanded(child: Text(tip, style: _contentText())),
+                    const Icon(Icons.fitness_center, size: 26, color: Colors.green),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        tip, 
+                        style: AppTextStyle.paragraph(context, fontSize: 15),
+                      ),
+                    ),
                   ],
                 ),
               )),
@@ -238,11 +270,10 @@ class SuggestionScreen extends StatelessWidget {
     );
   }
 
-  TextStyle _sectionTitle() => const TextStyle(
+  // Helper untuk Judul Seksi agar responsive terhadap tema
+  TextStyle _sectionTitle(BuildContext context) => TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 9, 51, 123),
+    color: AppColor.paraColor(context, light: const Color.fromARGB(255, 9, 51, 123), dark: AppColor.red),
   );
-
-  TextStyle _contentText() => const TextStyle(fontSize: 16);
 }
