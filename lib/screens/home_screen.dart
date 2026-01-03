@@ -1,7 +1,6 @@
 // lib/screens/home_screen.dart
 
 import 'package:fit_scale/screens/developer.dart';
-import 'package:fit_scale/screens/onboarding_screen.dart';
 import 'package:fit_scale/screens/result_screen.dart';
 import 'package:fit_scale/utility/text_style.dart';
 import 'package:fit_scale/utility/theme_provider.dart';
@@ -12,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utility/app_color.dart';
 
 class HomeScreen extends StatefulWidget {
-  late String userName;
+  String userName; 
   HomeScreen({super.key, required this.userName});
 
   @override
@@ -20,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // --- LOGIKA TETAP SAMA ---
   late RulerPickerController _ageController;
   late RulerPickerController _heightController;
   late RulerPickerController _weightController;
@@ -30,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double currentWeight = 45;
   bool maleSelected = false;
   bool femaleSelected = false;
+  
   String get firstName => widget.userName.split(" ")[0];
 
   @override
@@ -38,6 +37,55 @@ class _HomeScreenState extends State<HomeScreen> {
     _ageController = RulerPickerController(value: currentAge);
     _heightController = RulerPickerController(value: currentHeight);
     _weightController = RulerPickerController(value: currentWeight);
+  }
+
+  void _showChangeNameModal() {
+    final TextEditingController nameController = TextEditingController(text: widget.userName);
+    
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColor.background(context, light: AppColor.creamLight, dark: AppColor.extraLightBlack),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text("Ubah Nama", style: AppTextStyle.appBar(context, fontSize: 20)),
+        content: TextField(
+          controller: nameController,
+          autofocus: true,
+          decoration: InputDecoration(
+            hintText: "Masukkan nama baru",
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.red)),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.red, width: 2)),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Batal", style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppColor.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            onPressed: () async {
+              String newName = nameController.text.trim();
+              if (newName.isNotEmpty) {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setString('Name', newName);
+                
+                setState(() {
+                  widget.userName = newName;
+                });
+                
+                if (!mounted) return;
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Nama berhasil diperbarui")),
+                );
+              }
+            },
+            child: const Text("Simpan", style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
   }
 
   String getGreeting() {
@@ -75,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onMenuSelected(String value) {
     switch (value) {
       case 'change_name':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => OnboardingScreen()));
+        _showChangeNameModal();
         break;
       case 'theme':
         Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
@@ -93,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -109,36 +158,23 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          _buildHeader(),
-          const SizedBox(height: 15), // Jarak tambahan agar kotak input tidak terlalu mepet sapaan
-          _buildGenderAgeSection(),
-          const SizedBox(height: 12),
-          _buildMeasurementCard('Tinggi', 'cm', currentHeight, _heightController, _onHeightChanged, 'assets/images/tinggiBadan.png'),
-          const SizedBox(height: 12),
-          _buildMeasurementCard('Berat', 'kg', currentWeight, _weightController, _onWeightChanged, 'assets/images/beratBadan.png', isDecimal: true),
-          const SizedBox(height: 15),
-          _buildCalculateButton(),
-          const SizedBox(height: 10),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Expanded(
-      flex: 2,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SizedBox(
-          width: double.infinity,
+      // --- PERBAIKAN RESPONSIVE MENGGUNAKAN SINGLECHILDSCROLLVIEW ---
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center, // Pusatkan teks secara vertikal dalam area sapaan
             children: [
-              Text("Hi $firstName! 👋", style: AppTextStyle.appBar(context, fontSize: 24).copyWith(fontWeight: FontWeight.bold)),
-              Text(getGreeting(), style: AppTextStyle.appBar(context, fontSize: 16)),
+              _buildHeader(),
+              const SizedBox(height: 20), 
+              _buildGenderAgeSection(),
+              const SizedBox(height: 15),
+              _buildMeasurementCard('Tinggi', 'cm', currentHeight, _heightController, _onHeightChanged, 'assets/images/tinggiBadan.png'),
+              const SizedBox(height: 15),
+              _buildMeasurementCard('Berat', 'kg', currentWeight, _weightController, _onWeightChanged, 'assets/images/beratBadan.png', isDecimal: true),
+              const SizedBox(height: 25),
+              _buildCalculateButton(),
+              const SizedBox(height: 20), // Tambahan padding bawah agar tidak mepet navigation bar
             ],
           ),
         ),
@@ -146,48 +182,55 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildHeader() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Hi $firstName! 👋", style: AppTextStyle.appBar(context, fontSize: 24).copyWith(fontWeight: FontWeight.bold)),
+          Text(getGreeting(), style: AppTextStyle.appBar(context, fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
   Widget _buildGenderAgeSection() {
-    return Expanded(
-      flex: 6, // Dikurangi dari 7 agar tinggi kotak Gender & Umur tidak berlebihan
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          children: [
-            _buildGenderSelector(),
-            const SizedBox(width: 12),
-            _buildAgeSelector(),
-          ],
-        ),
+    return SizedBox(
+      height: 160, // Kunci tinggi agar tidak overflow ke dalam
+      child: Row(
+        children: [
+          Expanded(child: _buildGenderSelector()),
+          const SizedBox(width: 15),
+          Expanded(child: _buildAgeSelector()),
+        ],
       ),
     );
   }
 
   Widget _buildGenderSelector() {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Gender", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 15), 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildGenderOption('Male', maleSelected, 'assets/images/male.png', 'assets/images/maleBlack.png', () {
-                  setState(() { maleSelected = true; femaleSelected = false; });
-                }),
-                const VerticalDivider(color: Colors.grey, thickness: 1, indent: 5, endIndent: 5),
-                _buildGenderOption('Female', femaleSelected, 'assets/images/female.png', 'assets/images/femaleBlack.png', () {
-                  setState(() { femaleSelected = true; maleSelected = false; });
-                }),
-              ],
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Gender", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 15), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildGenderOption('Male', maleSelected, 'assets/images/male.png', 'assets/images/maleBlack.png', () {
+                setState(() { maleSelected = true; femaleSelected = false; });
+              }),
+              _buildGenderOption('Female', femaleSelected, 'assets/images/female.png', 'assets/images/femaleBlack.png', () {
+                setState(() { femaleSelected = true; maleSelected = false; });
+              }),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -197,75 +240,68 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: onTap,
       child: Column(
         children: [
-          Image.asset(isSelected ? selectedImg : unselectedImg, height: 45), 
-          const SizedBox(height: 6),
-          Text(label, style: AppTextStyle.paragraph(context, fontSize: 13)),
+          Image.asset(isSelected ? selectedImg : unselectedImg, height: 40), 
+          const SizedBox(height: 4),
+          Text(label, style: AppTextStyle.paragraph(context, fontSize: 12)),
         ],
       ),
     );
   }
 
   Widget _buildAgeSelector() {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Umur", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 5),
-            Text('${currentAge.toInt()}', style: AppTextStyle.paragraph(context, fontSize: 26, fontWeight: FontWeight.bold)),
-            SizedBox(
-              height: 55, 
-              child: _buildRulerPicker(_ageController, _onAgeChanged)
-            ),
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Umur", style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 5),
+          Text('${currentAge.toInt()}', style: AppTextStyle.paragraph(context, fontSize: 24, fontWeight: FontWeight.bold)),
+          SizedBox(
+            height: 50, 
+            child: _buildRulerPicker(_ageController, _onAgeChanged)
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildMeasurementCard(String title, String unit, double value, RulerPickerController controller, Function(double) onChange, String imagePath, {bool isDecimal = false}) {
-    return Expanded(
-      flex: 4,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
-            borderRadius: BorderRadius.circular(25),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      decoration: BoxDecoration(
+        color: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(imagePath, height: 50), 
+                const SizedBox(height: 5),
+                Text(title, style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold))
+              ],
+            ),
           ),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(imagePath, height: 55), 
-                    const SizedBox(height: 5),
-                    Text(title, style: AppTextStyle.paragraph(context, fontSize: 18, fontWeight: FontWeight.bold))
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('${value.toStringAsFixed(isDecimal ? 1 : 0)} $unit', 
-                        style: AppTextStyle.paragraph(context, fontSize: 24, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 5),
-                    SizedBox(height: 55, child: _buildRulerPicker(controller, onChange, isDecimal: isDecimal, isHeight: title == 'Tinggi')),
-                  ],
-                ),
-              ),
-            ],
+          Expanded(
+            flex: 3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('${value.toStringAsFixed(isDecimal ? 1 : 0)} $unit', 
+                    style: AppTextStyle.paragraph(context, fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 5),
+                SizedBox(height: 50, child: _buildRulerPicker(controller, onChange, isDecimal: isDecimal, isHeight: title == 'Tinggi')),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -277,50 +313,45 @@ class _HomeScreenState extends State<HomeScreen> {
       onBuildRulerScaleText: (index, value) => "",
       ranges: [RulerRange(begin: isHeight ? 100 : 1, end: isHeight ? 220 : 200, scale: isDecimal ? 0.1 : 1)],
       scaleLineStyleList: [
-        const ScaleLineStyle(color: Colors.grey, width: 2, height: 20, scale: 0), 
-        ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 12, scale: -1),
+        const ScaleLineStyle(color: Colors.grey, width: 2, height: 15, scale: 0), 
+        ScaleLineStyle(color: Colors.grey.withOpacity(0.8), width: 1, height: 10, scale: -1),
       ],
       onValueChanged: (value) => onChange(value.toDouble()),
       width: 150,
-      height: 55,
+      height: 50,
       marker: Container(
         width: 3,
-        height: 30,
+        height: 25,
         decoration: BoxDecoration(color: AppColor.red, borderRadius: BorderRadius.circular(5))
       ),
     );
   }
 
   Widget _buildCalculateButton() {
-    return Expanded(
-      flex: 2,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              elevation: 2,
-            ),
-            onPressed: () async {
-              final double heightInMeters = currentHeight / 100;
-              final bmiValue = currentWeight / (heightInMeters * heightInMeters);
-              final category = _getBmiCategory(bmiValue);
-              await _saveBmiRecord(bmiValue, category);
-
-              if (!mounted) return;
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ResultScreen(
-                userName: firstName, gender: maleSelected ? 'Male' : 'Female', age: currentAge.toStringAsFixed(0),
-                height: currentHeight.toStringAsFixed(0), weight: currentWeight.toStringAsFixed(1),
-                bmi: bmiValue.toStringAsFixed(1),
-              )));
-            },
-            child: Text('Menghitung', style: AppTextStyle.paragraph(context, fontWeight: FontWeight.bold, fontSize: 18)),
-          ),
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.buttonColor(context, dark: AppColor.extraLightBlack),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          elevation: 2,
         ),
+        onPressed: () async {
+          final double heightInMeters = currentHeight / 100;
+          final bmiValue = currentWeight / (heightInMeters * heightInMeters);
+          final category = _getBmiCategory(bmiValue);
+          await _saveBmiRecord(bmiValue, category);
+
+          if (!mounted) return;
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ResultScreen(
+            userName: firstName, gender: maleSelected ? 'Male' : 'Female', age: currentAge.toStringAsFixed(0),
+            height: currentHeight.toStringAsFixed(0), weight: currentWeight.toStringAsFixed(1),
+            bmi: bmiValue.toStringAsFixed(1),
+          )));
+        },
+        child: Text('Menghitung', style: AppTextStyle.paragraph(context, fontWeight: FontWeight.bold, fontSize: 18)),
       ),
     );
   }

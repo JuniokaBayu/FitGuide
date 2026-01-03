@@ -57,7 +57,6 @@ class InfoScreen extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              // --- PARAGRAF ---
               Text(
                 'NutriFit adalah kalkulator BMI (Body Mass Index) yang praktis dan mudah dipakai. '
                 'Aplikasi ini saya buat untuk membantu Anda mengecek kondisi kesehatan berdasarkan '
@@ -69,7 +68,6 @@ class InfoScreen extends StatelessWidget {
 
               const SizedBox(height: 35),
 
-              // --- FOOTER KECIL ---
               Text(
                 'Versi 1.0.0',
                 style: AppTextStyle.paragraph(context, fontSize: 13).copyWith(
