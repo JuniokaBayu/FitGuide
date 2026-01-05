@@ -77,70 +77,71 @@ Projek ini dibuat untuk memenuhi tugas Ujian Semester Akhir (UAS) pada mata kuli
 
 ---
 
-## Kebijakan Privasi / Term of Service
+## 📄 Kebijakan Privasi (Privacy Policy)
 
 Terakhir diperbarui: 2025
 
-NutriFit menghargai privasi setiap pengguna. Dokumen ini menjelaskan bagaimana aplikasi mengelola, menyimpan, dan menggunakan informasi yang diberikan pengguna. Dengan menggunakan aplikasi NutriFit, Anda dianggap telah memahami dan menyetujui kebijakan privasi berikut.
+NutriFit berkomitmen untuk melindungi privasi dan data pengguna. Dokumen ini menjelaskan bagaimana aplikasi mengelola, menyimpan, dan menggunakan informasi yang Anda berikan. Dengan menggunakan NutriFit, Anda dianggap telah memahami dan menyetujui kebijakan privasi ini.
 
-1. Informasi yang Dikumpulkan
+🔐 1. Informasi yang Dikumpulkan
 
-NutriFit hanya mengumpulkan satu jenis data yang diberikan secara manual oleh pengguna:
+NutriFit hanya mengumpulkan satu jenis informasi:
 
-Nama pengguna (opsional, digunakan hanya sebagai identitas di dalam aplikasi)
+Nama pengguna (opsional)
+Digunakan hanya untuk keperluan tampilan di dalam aplikasi.
 
-Aplikasi tidak mengumpulkan data lain seperti email, nomor telepon, lokasi, foto, atau data sensitif apa pun.
+Aplikasi tidak mengumpulkan informasi lain seperti email, lokasi, kontak, foto, atau data sensitif apa pun.
 
-2. Cara Penggunaan Informasi
+💾 2. Penggunaan Informasi
 
-Informasi nama yang Anda masukkan hanya digunakan untuk:
+Data yang Anda berikan digunakan hanya untuk:
 
-Ditampilkan di dalam aplikasi (misalnya sapaan atau kustomisasi ringan)
+Menampilkan nama di dalam aplikasi
 
-Menyimpan riwayat perhitungan BMI
+Menyimpan dan mengelola riwayat perhitungan BMI
 
 Memberikan pengalaman penggunaan yang lebih personal
 
-Data tersebut tidak dikirim ke server mana pun.
+NutriFit tidak mengirimkan data ke server mana pun.
 
-3. Penyimpanan Data
+📁 3. Penyimpanan Data
 
-Semua data disimpan secara lokal di perangkat Anda (offline).
+Seluruh data disimpan secara lokal di perangkat Anda.
 
-NutriFit tidak memiliki server, sehingga tidak pernah mengunggah, membagikan, atau mentransfer data ke pihak lain.
+Aplikasi bersifat offline, sehingga tidak ada aktivitas pengunggahan data ke internet.
 
-Riwayat BMI dan nama dapat dihapus kapan saja oleh pengguna melalui fitur yang tersedia di aplikasi.
+Pengguna dapat menghapus nama atau menghapus seluruh riwayat BMI kapan saja melalui fitur aplikasi.
 
-4. Keamanan Data
+🔒 4. Keamanan Data
 
-Walaupun aplikasi tidak mengelola data sensitif, NutriFit tetap memastikan:
+Walaupun data yang disimpan tidak bersifat sensitif, NutriFit tetap memastikan bahwa:
 
-Data hanya berada di perangkat pengguna.
+Tidak ada pihak ketiga yang dapat mengakses data Anda
 
-Tidak ada proses pelacakan, monitoring, atau aktivitas background lainnya.
+Tidak ada proses tracking, analitik, atau pengumpulan data otomatis
 
-Karena bersifat offline, keamanan data sepenuhnya berada di perangkat pengguna.
+Semua data sepenuhnya berada di perangkat pengguna
 
-5. Hak Pengguna
+👤 5. Hak Pengguna
 
-Pengguna memiliki hak untuk:
+Anda memiliki hak untuk:
 
 Mengubah nama kapan saja
 
-Menghapus seluruh riwayat BMI
+Menghapus riwayat BMI kapan saja
 
-Menghapus aplikasi untuk menghapus semua data secara permanen
+Menghapus aplikasi untuk menghapus seluruh data secara permanen
 
-Tidak ada data yang tersisa setelah aplikasi dihapus, karena semua disimpan secara lokal.
+Karena data disimpan secara lokal, seluruh data akan hilang saat aplikasi dihapus.
 
-6. Perubahan Kebijakan Privasi
+📝 6. Perubahan Kebijakan Privasi
 
-Kebijakan ini dapat diperbarui sewaktu-waktu. Perubahan akan diumumkan melalui pembaruan aplikasi atau dokumentasi proyek.
+Kebijakan ini dapat diperbarui sewaktu-waktu. Perubahan akan diinformasikan melalui pembaruan aplikasi atau dokumentasi resmi di repositori GitHub.
 
-7. Kontak Developer
+📬 7. Kontak Developer
 
-Jika Anda memiliki pertanyaan, masukan, atau ingin melaporkan masalah, Anda dapat menghubungi:
+Jika Anda memiliki pertanyaan, masukan, atau laporan terkait aplikasi, silakan hubungi:
 
-📧 Email Developer: okabayu12344@gmail.com
+Email Developer: okabayu12344@gmail.com
 
 ---
