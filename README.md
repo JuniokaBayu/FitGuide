@@ -79,7 +79,7 @@ Projek ini dibuat untuk memenuhi tugas Ujian Semester Akhir (UAS) pada mata kuli
 
 ## 📄 Kebijakan Privasi (Privacy Policy)
 
-Terakhir diperbarui: 2025
+Terakhir diperbarui: 2026
 
 NutriFit berkomitmen untuk melindungi privasi dan data pengguna. Dokumen ini menjelaskan bagaimana aplikasi mengelola, menyimpan, dan menggunakan informasi yang Anda berikan. Dengan menggunakan NutriFit, Anda dianggap telah memahami dan menyetujui kebijakan privasi ini.
 
@@ -143,5 +143,5 @@ Kebijakan ini dapat diperbarui sewaktu-waktu. Perubahan akan diinformasikan mela
 Jika Anda memiliki pertanyaan, masukan, atau laporan terkait aplikasi, silakan hubungi:
 
 Email Developer: okabayu12344@gmail.com
-
+Lihat dokumen lengkap: [Privacy Policy](privacy_policy.md)
 ---
