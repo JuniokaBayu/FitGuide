@@ -11,12 +11,13 @@ Sebagai bentuk keterbukaan, aplikasi ini turut menyediakan kontak developer apab
 
 ## 🧑‍💻 Info Pengembang
 
-Dibuat Oleh : 
-Nama    : Junioka Bayu Gionanda 
-Nim     : 2205101060
-Kelas   : 7C/TIF
+| Keterangan | Isi |
+|-----------|-----------------------|
+| Nama      | Junioka Bayu Gionanda |
+| NIM       | 2205101060 |
+| Kelas     | 7C / TIF |
 
-* Projek ini dibuat untuk memenuhi tugas Ujian Semester Akhir (UAS) pada mata kuliah Pemrograman Mobile 2 / Pemrogramman Bergerak
+Projek ini dibuat untuk memenuhi tugas Ujian Semester Akhir (UAS) pada mata kuliah Pemrograman Mobile 2 / Pemrogramman Bergerak
 
 ---
 
