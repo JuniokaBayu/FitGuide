@@ -11,6 +11,7 @@ Sebagai bentuk keterbukaan, aplikasi ini turut menyediakan kontak developer apab
 
 ## 🧑‍💻 Info Pengembang
 
+|  |  |
 |-----------|-----------------------|
 | Nama      | Junioka Bayu Gionanda |
 | NIM       | 2205101060 |
