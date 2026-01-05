@@ -143,5 +143,7 @@ Kebijakan ini dapat diperbarui sewaktu-waktu. Perubahan akan diinformasikan mela
 Jika Anda memiliki pertanyaan, masukan, atau laporan terkait aplikasi, silakan hubungi:
 
 Email Developer: okabayu12344@gmail.com
+
 Lihat dokumen lengkap: [Privacy Policy](privacy_policy.md)
+
 ---
