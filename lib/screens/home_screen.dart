@@ -58,10 +58,24 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
+          // TextButton(
+          //   onPressed: () => Navigator.pop(context),
+          //   child: const Text("Batal", style: TextStyle(color: Colors.grey)),
+          // ),
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Batal", style: TextStyle(color: Colors.grey)),
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            "Batal",
+            style: TextStyle(
+              color: AppColor.background(
+                context,
+                light: const Color.fromARGB(255, 74, 74, 74),
+                dark: Colors.white70,
+              ),
+            ),
           ),
+        ),
+
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColor.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             onPressed: () async {
