@@ -1,3 +1,9 @@
+## Icon Aplikasi
+
+! [Demo App](assets/images/app_Icon.png)
+
+---
+
 # 📱 NutriFit – Kalkulator BMI & Panduan Kesehatan
 
 NutriFit adalah aplikasi Flutter yang dirancang untuk membantu Anda memahami kondisi kesehatan melalui perhitungan Indeks Massa Tubuh (IMT/BMI) secara cepat dan akurat. Selain hanya memberikan hasil BMI, NutriFit juga menghadirkan rekomendasi kesehatan yang dipersonalisasi sesuai kategori BMI Anda. Setiap kategori seperti Underweight (kurus), Normal, Overweight (berat badan lebih), atau Obesitas memiliki saran yang berbeda, meliputi motivasi, rekomendasi makanan bergizi, serta tips olahraga dan gaya hidup sehat yang relevan.
@@ -18,6 +24,12 @@ Sebagai bentuk keterbukaan, aplikasi ini turut menyediakan kontak developer apab
 | Kelas     | 7C / TIF |
 
 Projek ini dibuat untuk memenuhi tugas Ujian Semester Akhir (UAS) pada mata kuliah Pemrograman Mobile 2 / Pemrogramman Bergerak
+
+---
+
+## Kategori Aplikasi
+
+Kesehatan dan Edukasi
 
 ---
 
@@ -145,5 +157,7 @@ Jika Anda memiliki pertanyaan, masukan, atau laporan terkait aplikasi, silakan h
 Email Developer: okabayu12344@gmail.com
 
 Lihat dokumen lengkap: [Privacy Policy](privacy_policy.md)
+
+#BMI #Kesehatan #Edukasi #Nutrifit #GayaHidupSehat #Kebugaran #HealthyLife
 
 ---
