@@ -1,6 +1,6 @@
 ## Icon Aplikasi
 
-! [Demo App](assets/images/app_Icon.png)
+![Demo App](assets/images/app_Icon.png)
 
 ---
 
