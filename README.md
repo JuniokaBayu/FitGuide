@@ -158,6 +158,15 @@ Email Developer: okabayu12344@gmail.com
 
 Lihat dokumen lengkap: [Privacy Policy](privacy_policy.md)
 
-#BMI #Kesehatan #Edukasi #Nutrifit #GayaHidupSehat #Kebugaran #HealthyLife
-
 ---
+
+## Tag
+- BMI
+- Kesehatan
+- Edukasi
+- Nutrifit
+- Gaya Hidup Sehat
+- Kebugaran
+- Healthy Life
+
+----
