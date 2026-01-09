@@ -6,7 +6,7 @@ import '../utility/text_style.dart';
 
 class ResultScreen extends StatelessWidget {
   final String age, height, weight, userName, gender, bmi;
-  ResultScreen({
+  const ResultScreen({
     super.key,
     required this.userName,
     required this.gender,

@@ -124,8 +124,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String _getBmiCategory(double bmi) {
-    if (bmi < 16) return 'Severe Thinness';
-    else if (bmi < 17) return 'Moderate Thinness';
+    if (bmi < 16) {
+      return 'Severe Thinness';
+    } else if (bmi < 17) return 'Moderate Thinness';
     else if (bmi < 18.5) return 'Mild Thinness';
     else if (bmi < 25) return 'Normal';
     else if (bmi < 30) return 'Overweight';

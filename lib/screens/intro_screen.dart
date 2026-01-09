@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../utility/text_style.dart';
 
 class IntroScreen extends StatelessWidget {
-  const IntroScreen();
+  const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

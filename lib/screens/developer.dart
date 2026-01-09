@@ -5,6 +5,8 @@ import '../utility/text_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Developer extends StatelessWidget {
+  const Developer({super.key});
+
   // Function to launch URLs
   void _launchURL(String url) async {
     if (!await launchUrl(

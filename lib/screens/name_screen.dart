@@ -7,7 +7,7 @@ class NameScreen extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onSubmit;
 
-  const NameScreen({required this.controller, required this.onSubmit});
+  const NameScreen({super.key, required this.controller, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
